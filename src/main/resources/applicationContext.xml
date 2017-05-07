@@ -17,7 +17,7 @@
                         http://www.springframework.org/schema/aop
         				http://www.springframework.org/schema/aop/spring-aop.xsd
         				http://www.springframework.org/schema/task 
-				        http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+				        http://www.springframework.org/schema/task/spring-task-3.1.xsd">
         				
     <import resource="classpath*:spring-redis.xml"/>
 	<!-- 自动扫描 -->
@@ -41,7 +41,7 @@
 		<property name="maxActive" value="${master.maxActive}" />
 		<property name="maxWait" value="${master.maxIdle}" />
 		<property name="minIdle" value="${master.minIdle}" />
-		<property name="filters" value="stat,mergeStat" />
+		<property name="filters" value="stat,wall" />
 		
 		<property name="minEvictableIdleTimeMillis" value="300000" />
 		<property name="timeBetweenEvictionRunsMillis" value="60000" />
@@ -115,4 +115,19 @@
     <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />    
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
     
+    <task:annotation-driven/>
+    
+    <!-- 添加spring监控 -->
+	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />
+	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+		<property name="patterns">
+			<list>
+				<value>com.andy.service.*</value>
+				<value>com.andy.mapper.*</value>
+			</list>
+		</property>
+	</bean>
+	<aop:config proxy-target-class="true">
+		<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
+	</aop:config>
 </beans>
