@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+                        http://www.springframework.org/schema/mvc  
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+                        http://www.springframework.org/schema/aop
+        				http://www.springframework.org/schema/aop/spring-aop.xsd
+        				http://www.springframework.org/schema/task 
+				        http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+        				
+    <import resource="classpath*:spring-redis.xml"/>
+	<!-- 自动扫描 -->
+	<context:component-scan base-package="com.andy">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 
+    </context:component-scan>
+
+	<!-- 引入配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:jdbc.properties" />
+	</bean>
+	
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${mysql.driver}" />
+		<property name="url" value="${master.url}" />
+		<property name="username" value="${master.username}" />
+		<property name="password" value="${master.password}" />
+		<property name="initialSize" value="${master.initialSize}" />
+		<property name="maxActive" value="${master.maxActive}" />
+		<property name="maxWait" value="${master.maxIdle}" />
+		<property name="minIdle" value="${master.minIdle}" />
+		<property name="filters" value="stat,mergeStat" />
+		
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="validationQuery" value="SELECT 1" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+	</bean>
+	
+	<!-- spring和MyBatis完美整合 -->  
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+        <property name="dataSource" ref="dataSource" />  
+        <!-- 自动扫描mapping.xml文件 -->  
+        <property name="mapperLocations" value="classpath*:com/andy/mapping/*.xml"></property>  
+    </bean>  
+  
+    <!-- DAO接口所在包名，Spring会自动查找其下的类 -->  
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
+        <property name="basePackage" value="com.andy.mapper" />  
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>  
+    </bean> 
+    
+    <!-- 注解事务 -->
+    <bean id="transactionManager"  
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+        <property name="dataSource" ref="dataSource" />  
+    </bean> 
+  	<tx:annotation-driven  transaction-manager="transactionManager"/>
+  	
+  	<!-- 配置shiro -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">    
+        <!-- 我们自定义的realm -->  
+        <property name="realm" ref="shiroRealm"/>    
+        <!-- 缓存管理器 -->  
+        <property name="cacheManager" ref="cacheManager"/>    
+    </bean>  
+      
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">   
+        <!-- 权限管理器 -->   
+        <property name="securityManager" ref="securityManager"/>   
+        <!-- 登录地址 -->   
+        <property name="loginUrl" value="/login.jsp"/>    
+        <!-- 登录后跳转到业务页面 -->  
+        <property name="successUrl" value="/view/index.jsp"/>    
+        <!-- 错误页面 -->  
+        <property name="unauthorizedUrl" value="/error.jsp"/>    
+        <!-- 权限配置 -->  
+        <property name="filterChainDefinitions">    
+            <value>    
+                <!-- anon无权限访问请求，此处是登录页面和登录请求 -->  
+                /user/login=anon
+                <!-- 静态资源放行 -->
+                /static/**=anon
+                <!-- druid连接池放行 -->
+                /monitor/**=anon
+                <!-- swagger-ui中的url放行 -->
+                /swagger-ui.html=anon
+                /webjars/**=anon
+                /configuration/**=anon
+                /swagger-resources/**=anon
+                /v2/api-docs=anon
+                <!-- 需要权限为add的用户才能访问此请求-->  
+                /user=perms[user:add]  
+                <!-- 需要管理员角色才能访问此页面 -->  
+                /user/add=roles[admin]  
+                <!--拦截非静态资源的所有请求-->    
+                /**=authc  
+            </value>    
+        </property>    
+    </bean>
+    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />    
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+    
+</beans>
