@@ -10,7 +10,7 @@
 	<properties>
 		<!-- 设定maven工程的编码 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.3.8.RELEASE</spring.version>
+		<spring.version>4.2.5.RELEASE</spring.version>
 		<mybatis.version>3.4.2</mybatis.version>
 		<slf4j.version>1.7.22</slf4j.version>
 		<logback.version>1.1.7</logback.version>
@@ -37,7 +37,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<!-- spring相关依赖 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -189,7 +189,7 @@
 			<artifactId>shiro-spring</artifactId>
 			<version>${shiro.version}</version>
 		</dependency>
-		
+
 		<!-- spring-data-redis -->
 		<dependency>
 			<groupId>redis.clients</groupId>
@@ -203,7 +203,7 @@
 			<artifactId>spring-data-redis</artifactId>
 			<version>1.0.0.RELEASE</version>
 		</dependency>
-		
+
 		<!-- utils -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
@@ -213,28 +213,39 @@
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>2.0</version>
+			<version>3.2</version>
 		</dependency>
+		<!-- <dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.0</version>
+		</dependency> -->
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>
 			<version>2.3</version>
 			<classifier>jdk15</classifier>
 		</dependency>
-		
-		<!--swagger2包-->
+		<!-- jsoup -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.8.3</version>
+		</dependency>
+
+		<!--swagger2包 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
 			<version>2.4.0</version>
 		</dependency>
-		<!--swagger2生成web界面需要的包,swagger1需要导入页面相关的js,css,html,swagger2为了简化操作直接将这些打包这个包中-->
+		<!--swagger2生成web界面需要的包,swagger1需要导入页面相关的js,css,html,swagger2为了简化操作直接将这些打包这个包中 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.4.0</version>
 		</dependency>
-		<!--swagger2依赖的包-->
+		<!--swagger2依赖的包 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
@@ -264,9 +275,9 @@
 						<target>1.8</target>
 					</configuration>
 				</plugin>
-				
+
 				<!-- 配置jetty运行环境 -->
-				<plugin>
+				<!-- <plugin>
 					<groupId>org.eclipse.jetty</groupId>
 					<artifactId>jetty-maven-plugin</artifactId>
 					<version>9.2.10.v20150310</version>
@@ -281,7 +292,7 @@
 						</webAppConfig>
 						<scanIntervalSeconds>0</scanIntervalSeconds>
 					</configuration>
-				</plugin>
+				</plugin> -->
 			</plugins>
 		</pluginManagement>
 	</build>

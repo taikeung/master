@@ -77,9 +77,9 @@
         <property name="realm" ref="shiroRealm"/>    
         <!-- 缓存管理器 -->  
         <property name="cacheManager" ref="cacheManager"/>    
-    </bean>  
-      
-    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">   
+    </bean>
+    
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">   
         <!-- 权限管理器 -->   
         <property name="securityManager" ref="securityManager"/>   
         <!-- 登录地址 -->   
@@ -95,6 +95,7 @@
                 /user/login=anon
                 <!-- 静态资源放行 -->
                 /static/**=anon
+                /favicon.ico=anon
                 <!-- druid连接池放行 -->
                 /monitor/**=anon
                 <!-- swagger-ui中的url放行 -->
@@ -108,13 +109,13 @@
                 <!-- 需要管理员角色才能访问此页面 -->  
                 /user/add=roles[admin]  
                 <!--拦截非静态资源的所有请求-->    
-                /**=authc  
+                /**=authc
             </value>    
         </property>    
     </bean>
     <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />    
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
-    
+  	  
     <task:annotation-driven/>
     
     <!-- 添加spring监控 -->

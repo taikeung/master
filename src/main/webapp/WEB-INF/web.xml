@@ -36,7 +36,7 @@
 
 	<!-- 获取项目路径监听器 -->
 	<listener>
-		<listener-class>com.andy.Listener.SysInitListener</listener-class>
+		<listener-class>com.andy.listener.SysInitListener</listener-class>
 	</listener>
 
 	<!-- 配置springmvc的dispathcherServlet -->

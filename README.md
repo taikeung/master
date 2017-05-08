@@ -5,3 +5,5 @@ master使用技术
 4. shiro 1.2.3
 5. spring-data-redis 2.0.0
 6. swagger2 2.4.0:http://127.0.0.1:8080/master/swagger-ui.html
+
+*注意问题：springMVC在action的跳转时，会自动加上你当前页面的根目录*
