@@ -11,11 +11,11 @@
 </head>
 <body>
 	<div id="weather">
-		<h1>weather</h1>
-		<table>
+		<center><h1>weather</h1></center>
+		<table align="center">
 			
 		</table>
-		<span id="deadTime"></span>
+		<center><span id="deadTime"></span></center>
 	</div>
 </body>
 </html>

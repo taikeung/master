@@ -13,22 +13,19 @@ $.ajax({
 			var img1 = data.img1;
 			var img2 = data.img2;
 			var ptime = data.ptime;
+			var weatherImgBaseUrl = "http://m.weather.com.cn/img/";
 			
 			$cityTr = $('<tr><td>地址：</td><td>'+city+'</td></tr>');
 			$lowTr = $('<tr><td>最低温度：</td><td>'+low+'</td></tr>');
 			$highTr = $('<tr><td>最高温度：</td><td>'+high+'</td></tr>');
-			$weatherTr = $('<tr><td>天气：</td><td>'+weather+'</td></tr>');
+			$weatherTr = $('<tr><td>天气：</td><td>'+weather+'<img src="'+weatherImgBaseUrl+img2+'"></td></tr>');
 			
 			$('#weather table').append($cityTr)
 							   .append($lowTr)
 							   .append($highTr)
 							   .append($weatherTr);
 			
-			var weatherImgBaseUrl = "http://m.weather.com.cn/img/";
-			$('#weather').append('<img src="'+weatherImgBaseUrl+img1+'">');
-			$('#weather').append('<img src="'+weatherImgBaseUrl+img2+'">');
-			
-			$('#deadTime').text('截止至'+ptime);
+			$('#deadTime').html('截止至'+ptime+'<img src="'+weatherImgBaseUrl+img1+'">');
 		}
 	},
 	error:function(){
