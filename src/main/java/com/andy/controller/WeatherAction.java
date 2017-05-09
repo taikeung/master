@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.andy.grab.WeatherGrab;
 
@@ -19,7 +21,8 @@ public class WeatherAction {
 	private static final Logger logger = LoggerFactory.getLogger("WeatherAction");
 	
 	@ApiIgnore
-	@RequestMapping("/{city}")
+	@ResponseBody
+	@RequestMapping(value = "/{city}",method = RequestMethod.GET)
 	public JSONObject getWeatherByCity(@PathVariable(value = "city")String city){
 		JSONObject retJson = new JSONObject(); 
 		try {

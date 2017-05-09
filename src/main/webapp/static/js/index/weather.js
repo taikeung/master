@@ -1,11 +1,11 @@
 //请求天气
 $.ajax({
 	url:'/weather/101280601',
-	type:'post',
+	type:'GET',
 	dataType:'json',
 	success:function(result){
 		if(result.code==0){
-			var data = result.data;
+			var data = result.data.weatherinfo;
 			var city = data.city;
 			var low = data.temp1;
 			var high = data.temp2;
