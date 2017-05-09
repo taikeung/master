@@ -47,8 +47,8 @@
 		<property name="timeBetweenEvictionRunsMillis" value="60000" />
 		<property name="validationQuery" value="SELECT 1" />
 		<property name="testWhileIdle" value="true" />
-		<property name="testOnBorrow" value="false" />
-		<property name="testOnReturn" value="false" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
 	</bean>
 	
 	<!-- spring和MyBatis完美整合 -->  
@@ -65,11 +65,14 @@
     </bean> 
     
     <!-- 注解事务 -->
+    <tx:annotation-driven  transaction-manager="transactionManager"/>
+    
+    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx --> 
     <bean id="transactionManager"  
         class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
         <property name="dataSource" ref="dataSource" />  
     </bean> 
-  	<tx:annotation-driven  transaction-manager="transactionManager"/>
+  	
   	
   	<!-- 配置shiro -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">    

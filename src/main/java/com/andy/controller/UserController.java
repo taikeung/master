@@ -29,7 +29,7 @@ public class UserController {
 	public String login(String userName,String password) {
 		Subject subject = SecurityUtils.getSubject();
 		subject.login(new UsernamePasswordToken(userName, password));
-		if(subject.isAuthenticated() && subject.isRemembered()){
+		if(subject.isAuthenticated()){
 			Session session = subject.getSession(false);
 			Map<String, String> userInfo = new HashMap<>();
 			userInfo.put(userName, password);

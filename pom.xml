@@ -215,11 +215,6 @@
 			<artifactId>commons-collections</artifactId>
 			<version>3.2</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-collections4</artifactId>
-			<version>4.0</version>
-		</dependency> -->
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>
@@ -277,22 +272,31 @@
 				</plugin>
 
 				<!-- 配置jetty运行环境 -->
-				<!-- <plugin>
+				<plugin>
 					<groupId>org.eclipse.jetty</groupId>
 					<artifactId>jetty-maven-plugin</artifactId>
 					<version>9.2.10.v20150310</version>
 					<configuration>
-						<connectors>
-							<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-								<port>8080</port>
-							</connector>
-						</connectors>
-						<webAppConfig>
-							<contextPath> /${project.artifactId}</contextPath>
-						</webAppConfig>
-						<scanIntervalSeconds>0</scanIntervalSeconds>
+						<webApp>
+                            <contextPath>/</contextPath>
+                            <descriptor>${basedir}/src/main/webapp/WEB-INF/web.xml</descriptor>
+                        </webApp>
+                        <stopKey>exit</stopKey>
+                        <stopPort>8005</stopPort>
+                        <webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
+                        <scanIntervalSeconds>1</scanIntervalSeconds>
+                        <httpConnector>
+                            <port>80</port>
+                        </httpConnector>
+                        <requestLog implementation="org.eclipse.jetty.server.NCSARequestLog">
+                            <filename>target/access.log</filename>
+                            <retainDays>90</retainDays>
+                            <append>false</append>
+                            <extended>false</extended>
+                            <logTimeZone>GMT+8:00</logTimeZone>
+                        </requestLog>
 					</configuration>
-				</plugin> -->
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
