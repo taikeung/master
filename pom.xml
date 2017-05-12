@@ -306,7 +306,7 @@
 						<url>http://47.92.0.76:80/manager/text</url>  
 						<server>master</server>
 						<!-- 此处的名字是项目发布的工程名 --> 
-						<path>/</path>  
+						<path>/master</path>  
 					</configuration>  
 				</plugin>
 			</plugins>
