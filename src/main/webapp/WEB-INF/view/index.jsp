@@ -11,8 +11,9 @@
 </head>
 <body>
 	<div id="weather">
-		<center><h1>weather</h1><span id="city"></span></center>
-		<div align="center" id="detail">
+		<center><h1 style="color:blue">weather</h1><span id="city" style="font-size:25px;color:red;font-weight:bold"></span></center>
+		<br>
+		<div id="detail" style="margin-left:600px;">
 			
 		</div>
 	</div>

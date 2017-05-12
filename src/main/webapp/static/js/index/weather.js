@@ -4,9 +4,10 @@ $.ajax({
 	type:'GET',
 	dataType:'json',
 	success:function(result){
+		console.log(result);
 		if(result.code==0){
 			
-			var datas = result.result;
+			var datas = result.data.result;
 			var citynm = datas[0].citynm;
 			$('#city').text(citynm);
 			
@@ -26,11 +27,11 @@ $.ajax({
 				var temp_high = data.temp_high; // 31℃
 				var temp_low = data.temp_low; //24℃
 				
-				$dateTr = $('<tr><td>日期：</td><td>'+date+','+week+'</td></tr>');
-				$weatherTr = $('<tr><td>天气：</td><td>'+weather+'<img src="'+weather_icon+'"></td></tr>');
-				$lowTr = $('<tr><td>最低温度：</td><td>'+temp_low+'℃</td></tr>');
-				$highTr = $('<tr><td>最高温度：</td><td>'+temp_high+'℃</td></tr>');
-				$windTr = $('<tr><td>风向：</td><td>'+wind+','+winp+'</td></tr>');
+				var $dateTr = $('<tr><td>日期：</td><td>'+date+','+week+'</td></tr>');
+				var $weatherTr = $('<tr><td>天气：</td><td>'+weather+'<img src="'+weather_icon+'"></td></tr>');
+				var $lowTr = $('<tr><td>最低温度：</td><td>'+temp_low+'℃</td></tr>');
+				var $highTr = $('<tr><td>最高温度：</td><td>'+temp_high+'℃</td></tr>');
+				var $windTr = $('<tr><td>风向：</td><td>'+wind+','+winp+'</td></tr>');
 				
 				var $br=$("<br>");
 				
