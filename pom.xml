@@ -259,6 +259,27 @@
 	</dependencies>
 	<build>
 		<finalName>master</finalName>
+		<!-- 防止打包时xml,properties,tld等文件遗漏 -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+					<include>**/*.tld</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+					<include>**/*.tld</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
 		<pluginManagement>
 			<plugins>
 				<!-- 配置maven的jre版本 -->
@@ -278,36 +299,36 @@
 					<version>9.2.10.v20150310</version>
 					<configuration>
 						<webApp>
-                            <contextPath>/</contextPath>
-                            <descriptor>${basedir}/src/main/webapp/WEB-INF/web.xml</descriptor>
-                        </webApp>
-                        <stopKey>exit</stopKey>
-                        <stopPort>8005</stopPort>
-                        <webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
-                        <scanIntervalSeconds>1</scanIntervalSeconds>
-                        <httpConnector>
-                            <port>80</port>
-                        </httpConnector>
-                        <requestLog implementation="org.eclipse.jetty.server.NCSARequestLog">
-                            <filename>target/access.log</filename>
-                            <retainDays>90</retainDays>
-                            <append>false</append>
-                            <extended>false</extended>
-                            <logTimeZone>GMT+8:00</logTimeZone>
-                        </requestLog>
+							<contextPath>/</contextPath>
+							<descriptor>${basedir}/src/main/webapp/WEB-INF/web.xml</descriptor>
+						</webApp>
+						<stopKey>exit</stopKey>
+						<stopPort>8005</stopPort>
+						<webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
+						<scanIntervalSeconds>1</scanIntervalSeconds>
+						<httpConnector>
+							<port>80</port>
+						</httpConnector>
+						<requestLog implementation="org.eclipse.jetty.server.NCSARequestLog">
+							<filename>target/access.log</filename>
+							<retainDays>90</retainDays>
+							<append>false</append>
+							<extended>false</extended>
+							<logTimeZone>GMT+8:00</logTimeZone>
+						</requestLog>
 					</configuration>
 				</plugin>
 				<!-- 添加maven远程部署插件 -->
-				<plugin>  
-					<groupId>org.apache.tomcat.maven</groupId>  
-					<artifactId>tomcat7-maven-plugin</artifactId>  
-					<version>2.2</version>  
-					<configuration>  
-						<url>http://47.92.0.76:80/manager/text</url>  
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.2</version>
+					<configuration>
+						<url>http://47.92.0.76:80/manager/text</url>
 						<server>master</server>
-						<!-- 此处的名字是项目发布的工程名 --> 
-						<path>/master</path>  
-					</configuration>  
+						<!-- 此处的名字是项目发布的工程名 -->
+						<path>/master</path>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
