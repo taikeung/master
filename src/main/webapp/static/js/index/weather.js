@@ -5,27 +5,45 @@ $.ajax({
 	dataType:'json',
 	success:function(result){
 		if(result.code==0){
-			var data = result.data.weatherinfo;
-			var city = data.city;
-			var low = data.temp1;
-			var high = data.temp2;
-			var weather = data.weather;
-			var img1 = data.img1;
-			var img2 = data.img2;
-			var ptime = data.ptime;
-			var weatherImgBaseUrl = "http://m.weather.com.cn/img/";
 			
-			$cityTr = $('<tr><td>地址：</td><td>'+city+'</td></tr>');
-			$lowTr = $('<tr><td>最低温度：</td><td>'+low+'</td></tr>');
-			$highTr = $('<tr><td>最高温度：</td><td>'+high+'</td></tr>');
-			$weatherTr = $('<tr><td>天气：</td><td>'+weather+'<img src="'+weatherImgBaseUrl+img2+'"></td></tr>');
+			var datas = result.result;
+			var citynm = datas[0].citynm;
+			$('#city').text(citynm);
 			
-			$('#weather table').append($cityTr)
-							   .append($lowTr)
-							   .append($highTr)
-							   .append($weatherTr);
-			
-			$('#deadTime').html('截止至'+ptime+'<img src="'+weatherImgBaseUrl+img1+'">');
+			for(var i=0;i<datas.length;i++){
+				var $tb=$('<table></table>');
+				var data = datas[i];
+				var date = data.days; //日期
+				var week = data.week; //星期
+				//var citynm = data.citynm; //城市名称
+				var temperature = data.temperature; //31℃/24℃
+				var weather = data.weather; //天气
+				var weather_icon = data.weather_icon;  //http://api.k780.com:88/upload/weather/d/7.gif
+				var weather_icon1 = data.weather_icon1; //http://api.k780.com:88/upload/weather/n/7.gif
+				
+				var wind = data.wind; //无持续风向
+				var winp = data.winp; //微风
+				var temp_high = data.temp_high; // 31℃
+				var temp_low = data.temp_low; //24℃
+				
+				$dateTr = $('<tr><td>日期：</td><td>'+date+','+week+'</td></tr>');
+				$weatherTr = $('<tr><td>天气：</td><td>'+weather+'<img src="'+weather_icon+'"></td></tr>');
+				$lowTr = $('<tr><td>最低温度：</td><td>'+temp_low+'℃</td></tr>');
+				$highTr = $('<tr><td>最高温度：</td><td>'+temp_high+'℃</td></tr>');
+				$windTr = $('<tr><td>风向：</td><td>'+wind+','+winp+'</td></tr>');
+				
+				var $br=$("<br>");
+				
+				
+				$tb.append($dateTr)
+				   .append($weatherTr)
+				   .append($lowTr)
+				   .append($highTr)
+				   .append($windTr);
+				
+				$('#detail').append($tb).append($br);
+									
+			}
 		}
 	},
 	error:function(){
