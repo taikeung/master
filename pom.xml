@@ -256,7 +256,12 @@
 			<artifactId>jackson-core</artifactId>
 			<version>2.8.3</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.10</version>
+        </dependency>
+    </dependencies>
 	<build>
 		<finalName>master</finalName>
 		<!-- 防止打包时xml,properties,tld等文件遗漏 -->

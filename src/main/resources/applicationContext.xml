@@ -86,11 +86,11 @@
         <!-- 权限管理器 -->   
         <property name="securityManager" ref="securityManager"/>   
         <!-- 登录地址 -->   
-        <property name="loginUrl" value="/login.jsp"/>    
+        <property name="loginUrl" value="redirect:/login.jsp"/>
         <!-- 登录后跳转到业务页面 -->  
-        <property name="successUrl" value="/view/index.jsp"/>    
+        <property name="successUrl" value="redirect:/view/index.jsp"/>
         <!-- 错误页面 -->  
-        <property name="unauthorizedUrl" value="/error.jsp"/>    
+        <property name="unauthorizedUrl" value="redirect:/error.jsp"/>
         <!-- 权限配置 -->  
         <property name="filterChainDefinitions">    
             <value>    
@@ -120,7 +120,10 @@
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
   	  
     <task:annotation-driven/>
-    
+
+    <!--开启aop动态代理-->
+    <aop:aspectj-autoproxy/>
+
     <!-- 添加spring监控 -->
 	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />
 	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
@@ -134,4 +137,6 @@
 	<aop:config proxy-target-class="true">
 		<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
 	</aop:config>
+
+
 </beans>
