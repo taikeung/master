@@ -33,6 +33,13 @@
         <property name="maxUploadSize" value="10485760000" />  
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="40960" />  
-    </bean>  
-   
+    </bean>
+
+    <!--添加拦截器配置-->
+   <mvc:interceptors>
+       <mvc:interceptor>
+           <mvc:mapping path="/user/login"/>
+           <bean class="com.andy.interceptor.LoginInterceptor"/>
+       </mvc:interceptor>
+   </mvc:interceptors>
 </beans>

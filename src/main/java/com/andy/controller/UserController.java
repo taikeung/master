@@ -17,36 +17,38 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
-	private Logger logger = LoggerFactory.getLogger("UserController");
-	/**
-	 * @MethodName login  
-	 * @Description 用户登录
-	 * @return
-	 */
-	@ApiIgnore
-	@RequestMapping("/login")
-	public String login(String userName,String password) {
-		Subject subject = SecurityUtils.getSubject();
-		UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
-		//验证角色和权限
-		subject.login(token);
-		if(subject.isAuthenticated()){
-			token.setRememberMe(true);
-			Session session = subject.getSession(false);
-			Map<String, String> userInfo = new HashMap<>();
-			userInfo.put(userName, password);
-			session.setAttribute("USER_INFO", userInfo);
-			logger.debug("身份验证通过");
-			return "index";
-		}
-		logger.debug("身份验证不通过");
-		return "redirect:/login";
-	}
-	@RequestMapping(value="/logout",method=RequestMethod.GET)    
-    public String logout() {   
-        Subject currentUser = SecurityUtils.getSubject();       
-        currentUser.logout();    
+
+    private Logger logger = LoggerFactory.getLogger("UserController");
+
+    /**
+     * @return
+     * @MethodName login
+     * @Description 用户登录
+     */
+    @ApiIgnore
+    @RequestMapping("/login")
+    public String login(String userName, String password) {
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
+        //验证角色和权限
+        subject.login(token);
+        if (subject.isAuthenticated()) {
+            token.setRememberMe(true);
+            Session session = subject.getSession(false);
+            Map<String, String> userInfo = new HashMap<>();
+            userInfo.put(userName, password);
+            session.setAttribute("USER_INFO", userInfo);
+            logger.debug("身份验证通过");
+            return "index";
+        }
+        logger.debug("身份验证不通过");
+        return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout() {
+        Subject currentUser = SecurityUtils.getSubject();
+        currentUser.logout();
         return "login";
-    }  
+    }
 }
