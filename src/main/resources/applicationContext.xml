@@ -19,7 +19,6 @@
         				http://www.springframework.org/schema/task 
 				        http://www.springframework.org/schema/task/spring-task-3.1.xsd">
         				
-    <import resource="classpath*:spring-redis.xml"/>
 	<!-- 自动扫描 -->
 	<context:component-scan base-package="com.andy">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 
@@ -137,6 +136,8 @@
 	<aop:config proxy-target-class="true">
 		<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
 	</aop:config>
-
+	
+	<import resource="classpath*:spring-redis.xml"/>
+    <import resource="classpath*:spring-task.xml"/>
 
 </beans>
