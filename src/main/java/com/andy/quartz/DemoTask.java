@@ -94,4 +94,15 @@ public class DemoTask{
 			e.printStackTrace();
 		}
 	}
+	public void task9() {
+		
+		try {
+			for(int i = 0; i < 5 * 60; i++) {
+				logger.info("task9 are running for " + i + "seconds...");
+				Thread.sleep(1000);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
