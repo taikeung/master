@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.andy.mapper.QrtzMisfiredTriggersMapper" >
+  <resultMap id="BaseResultMap" type="com.andy.domain.QrtzMisfiredTriggers" >
+    <result column="TARGET_OBJECT" property="targetObject" jdbcType="VARCHAR" />
+    <result column="TARGET_METHOD" property="targetMethod" jdbcType="VARCHAR" />
+    <result column="TRIGGER_NAME" property="triggerName" jdbcType="VARCHAR" />
+    <result column="SHOULD_FIRED_TIME" property="shouldFiredTime" jdbcType="BIGINT" />
+    <result column="HAS_NOTIFIED" property="hasNotified" jdbcType="INTEGER" />
+    <result column="INSERT_TIME" property="insertTime" jdbcType="BIGINT" />
+  </resultMap>
+  <insert id="insert" parameterType="com.andy.domain.QrtzMisfiredTriggers" >
+    insert into QRTZ_MISFIRED_TRIGGERS (TARGET_OBJECT, TARGET_METHOD, TRIGGER_NAME, 
+      SHOULD_FIRED_TIME, HAS_NOTIFIED, INSERT_TIME
+      )
+    values (#{targetObject,jdbcType=VARCHAR}, #{targetMethod,jdbcType=VARCHAR}, #{triggerName,jdbcType=VARCHAR}, 
+      #{shouldFiredTime,jdbcType=BIGINT}, #{hasNotified,jdbcType=INTEGER}, #{insertTime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.andy.domain.QrtzMisfiredTriggers" >
+    insert into QRTZ_MISFIRED_TRIGGERS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="targetObject != null" >
+        TARGET_OBJECT,
+      </if>
+      <if test="targetMethod != null" >
+        TARGET_METHOD,
+      </if>
+      <if test="triggerName != null" >
+        TRIGGER_NAME,
+      </if>
+      <if test="shouldFiredTime != null" >
+        SHOULD_FIRED_TIME,
+      </if>
+      <if test="hasNotified != null" >
+        HAS_NOTIFIED,
+      </if>
+      <if test="insertTime != null" >
+        INSERT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="targetObject != null" >
+        #{targetObject,jdbcType=VARCHAR},
+      </if>
+      <if test="targetMethod != null" >
+        #{targetMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerName != null" >
+        #{triggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="shouldFiredTime != null" >
+        #{shouldFiredTime,jdbcType=BIGINT},
+      </if>
+      <if test="hasNotified != null" >
+        #{hasNotified,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>
