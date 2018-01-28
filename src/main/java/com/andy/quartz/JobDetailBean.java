@@ -8,7 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.quartz.QuartzJobBean;
-
+import org.springframework.stereotype.Component;
+@Component("jobDetailBean")
 public class JobDetailBean extends QuartzJobBean {
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger("JobDetailBean");
 
@@ -39,5 +40,13 @@ public class JobDetailBean extends QuartzJobBean {
 
 	public void setTargetMethod(String targetMethod) {
 		this.targetMethod = targetMethod;
+	}
+
+	public String getTargetObject() {
+		return targetObject;
+	}
+
+	public String getTargetMethod() {
+		return targetMethod;
 	}
 }

@@ -212,6 +212,8 @@
 		lazy-init="false">
 		<property name="dataSource" ref="dataSource" />
 		<property name="overwriteExistingJobs" value="true" />
+		<!--注册到调度器仓库中-->
+        <property name="exposeSchedulerInRepository" value="true" />
 		<!-- 设置自动启动 -->
 		<property name="autoStartup" value="true" />
 		<property name="startupDelay" value="10" />
@@ -219,6 +221,11 @@
 		<property name="configLocation" value="classpath:quartz.properties" />
 		<property name="jobFactory">
             <bean class="com.andy.quartz.AutoWiringSpringBeanJobFactory" />
+        </property>
+        <property name="globalTriggerListeners">
+        		<list>
+        			<ref bean="customTriggerListener"/>
+        		</list>
         </property>
 		<property name="triggers">
 			<list>
@@ -234,4 +241,26 @@
 			</list>
 		</property>
 	</bean>
+	<!--声明bean获取管理器,通过构造函数方式获取-->
+    <bean id="constructorQuartzBeanManager" class="com.github.quartzweb.manager.bean.ConstructorQuartzBeanManager">
+        <property name="priority" value="5" />
+    </bean>
+    <!--设置bean管理器,通过spring的applicationContext获取-->
+    <bean id="springQuartzBeanManager" class="com.github.quartzweb.manager.bean.SpringQuartzBeanManager">
+        <property name="priority" value="10" />
+    </bean>
+    
+    <!--声明bean管理器门面,必须使用getInstance()初始化实例-->
+    <bean id="quartzBeanManagerFacade" class="com.github.quartzweb.manager.bean.QuartzBeanManagerFacade"
+          factory-method="getInstance">
+        <!--设置管理器,根据优先级排序-->
+        <property name="quartzBeanManagers">
+            <list>
+                <ref bean="springQuartzBeanManager"/>
+                <ref bean="constructorQuartzBeanManager"/>
+            </list>
+        </property>
+        <!--是否启用默认bean管理器-->
+        <property name="useDefaultQuartzBeanManager" value="false"/>
+    </bean>
 </beans>
