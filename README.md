@@ -9,7 +9,7 @@ master使用技术
 *注意问题：springMVC在action的跳转时，会自动加上你当前页面的根目录*
 
 
-<h1>spring + quartz集群配置<h1>
+spring + quartz集群配置
 
 
 1.创建quartz数据库:[tables_mysql.sql](https://github.com/AndyHooo/master/blob/master/tables_mysql.sql)  
