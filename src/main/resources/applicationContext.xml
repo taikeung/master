@@ -138,6 +138,7 @@
 	</aop:config>
 	
 	<import resource="classpath*:spring-redis.xml"/>
-    <import resource="classpath*:spring-task.xml"/>
+    <import resource="classpath*:spring-standalone-task.xml"/>
+    <import resource="classpath*:spring-cluster-task.xml"/>
 
 </beans>

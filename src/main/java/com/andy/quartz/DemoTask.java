@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.andy.annotation.IpPort;
+
 /**
  * Spring调度任务
  * @author liuyazhuang
@@ -14,6 +16,7 @@ public class DemoTask{
 	
 	private static final Logger logger = LoggerFactory.getLogger("DemoTask");
 	
+	@IpPort(ip = "127.0.0.1",port = "80")
 	public void task1() {
 		try {
 			for (int i = 0; i < 10; i++) {
@@ -24,6 +27,8 @@ public class DemoTask{
 			e.printStackTrace();
 		}
 	}
+	
+	@IpPort(ip = "127.0.0.1",port = "8081")
 	public void task2() {
 		try {
 			for (int i = 0; i < 10; i++) {
