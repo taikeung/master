@@ -16,7 +16,7 @@ public class DemoTask{
 	
 	private static final Logger logger = LoggerFactory.getLogger("DemoTask");
 	
-	@IpPort(ip = "127.0.0.1",port = "80")
+	@IpPort(ip = "172.25.69.54",port = "80")
 	public void task1() {
 		try {
 			for (int i = 0; i < 10; i++) {
@@ -28,7 +28,7 @@ public class DemoTask{
 		}
 	}
 	
-	@IpPort(ip = "127.0.0.1",port = "8081")
+	@IpPort(ip = "172.25.69.54",port = "8081")
 	public void task2() {
 		try {
 			for (int i = 0; i < 10; i++) {
